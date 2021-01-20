@@ -148,6 +148,8 @@
 
      路径类型解析 ：https://www.jianshu.com/p/c819ae16d29b
 
+     Path 的d属性定义路径
+
      有以下类型：
 
      - M = moveto

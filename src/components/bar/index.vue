@@ -13,6 +13,10 @@
     <StackedBar />
     <p>Grouped Bar</p>
     <GroupedBar />
+    <p>WorldHistoryTimelineBar</p>
+    <WorldHistoryTimelineBar />
+    <p>CalendarView</p>
+    <CalendarView />
   </div>
 </template>
 
@@ -22,10 +26,12 @@ import HorizontalBar from './components/barHorizontal'
 import DevergeBar from './components/devergeBar'
 import StackedBar from './components/stackedBar'
 import GroupedBar from './components/groupedBar'
+import WorldHistoryTimelineBar from './components/worldHistoryTimelineBar'
+import CalendarView from './components/calendarView'
 export default {
   name: '',
 
-  components: { Bar, HorizontalBar, DevergeBar, StackedBar, GroupedBar },
+  components: { Bar, HorizontalBar, DevergeBar, StackedBar, GroupedBar, WorldHistoryTimelineBar, CalendarView },
   data() {
     return {
     }
