@@ -180,14 +180,31 @@
   ## 参考svg元素：https://developer.mozilla.org/zh-CN/docs/Web/SVG/Element
 
   1. <a>
+
   2. <animate>
      
 
   3. Svg: 如果svg不是根元素，`svg` 元素可以用于在当前文档（比如说，一个HTML文档）内嵌套一个独立的svg片段 。 这个独立片段拥有独立的视口和坐标系统.
      
+
   4. 1
+
   5. a
+
   6. a
+
   7. a
+
   8. a
-  9. 
+
+  9. SVG 复用（defs、symbol、use）：https://blog.csdn.net/chy555chy/article/details/53364561
+
+     Defs 设置样式
+
+     ```scss
+     <defs><style>circle.highlighted { stroke: orangered; fill: orangered; }</style></defs>
+     ```
+
+     
+
+  10. 

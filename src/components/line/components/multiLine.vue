@@ -7,7 +7,7 @@
 import * as d3 from 'd3'
 const data = require('../data/multiLine')
 // const data = require('../data/lineChart2') // missing data
-console.log(data)
+// console.log(data)
 data.dates = data.dates.map(date => new Date(date)) // 对于时间数据，提前处理成时间对象，这样有助于提高时间轴相关的性能
 
 const width = 1000
@@ -117,7 +117,7 @@ export default {
           // 证明pointer的值代表的不是mouse事件的x y 值，而是 domain值
           const ydomain = y.invert(pointer[1])
           //   console.log(xdomain) // 是个时间对象
-          const i = d3.bisectCenter(data.dates, xdomain) // Returns the index of the closest value to x in the given sorted array
+          const i = d3.bisectCenter(data.dates, xdomain) // Returns the index of the closest value to xdomain in the given sorted array
           // d3.least 根据指定的比较器或访问器返回指定可迭代对象中最小的元素
           const s = d3.least(data.series, d => Math.abs(d.values[i] - ydomain))
 

@@ -27,6 +27,11 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/zoom', // 折线图
+    component: () => import('../components/zoom'),
+    hidden: true
+  },
+  {
     path: '/selection', // selection 的使用
     component: () => import('../components/selection'),
     hidden: true

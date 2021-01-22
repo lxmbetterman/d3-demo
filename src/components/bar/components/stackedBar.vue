@@ -49,7 +49,7 @@ export default {
         .offset(d3.stackOffsetNone)
 
       var series = stack(data)
-      console.log(series)
+      // console.log(series)
 
       // 第二个例子
       var tem = [
@@ -101,7 +101,7 @@ export default {
       ]
       var Keys = ['d', 'e', 'f']
       var result = d3.stack().keys(Keys)(tem)
-      console.log(result)
+      // console.log(result)
     // 转化之后：var result = d3.stack().keys(Keys)(tem)
     // Stack 数据处理其实就是把多维的数据tem做下统计，按 Keys中的"d"拉出来一个分组,按"e"拉出来一个分组,按"f"拉出来一个分组，
     // 每个小组里边的数组的长度和tem的长度相同
@@ -109,7 +109,7 @@ export default {
 
     init() {
       const series = d3.stack().keys(keys)(data)
-      console.log(series)
+      // console.log(series)
 
       const svg = d3.select('#stackedBar').append('svg')
         .attr('width', width)

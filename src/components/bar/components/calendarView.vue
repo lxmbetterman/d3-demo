@@ -13,14 +13,14 @@ var weekOfYear = require('dayjs/plugin/weekOfYear')
 // import AdvancedFormat from 'dayjs/plugin/advancedFormat' // ES 2015
 
 dayjs.extend(weekOfYear) // use plugin
-console.log(dayjs('2000-05-26T00:00:00.000Z').year())
-console.log(dayjs('2000-05-26T00:00:00.000Z').week(), "dayjs('2018-06-27').week()")
-console.log(dayjs('2000-05-21T00:00:00.000Z').day(), "dayjs('2018-06-27').day()")
-const data = require('../../../assets/calendarViewData')
+// console.log(dayjs('2000-05-26T00:00:00.000Z').year())
+// console.log(dayjs('2000-05-26T00:00:00.000Z').week(), "dayjs('2018-06-27').week()")
+// console.log(dayjs('2000-05-21T00:00:00.000Z').day(), "dayjs('2018-06-27').day()")
+const data = require('../../../assets/calendarViewData').slice(4600)
 // close: 10299.240234
 // date: "2000-05-26T00:00:00.000Z"
 // value: -0.0023905346211962174
-console.log(data)
+// console.log(data, 'ttt')
 import * as d3 from 'd3'
 
 const width = 1000
@@ -55,7 +55,7 @@ export default {
   methods: {
     init() {
       const years = d3.groups(data, d => dayjs(d.date).year()).reverse()
-      console.log(years, 'year')
+      // console.log(years, 'year')
 
       const svg = d3.select('#CalendarView').append('svg')
         .attr('width', width)
