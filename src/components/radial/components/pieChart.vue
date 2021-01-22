@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <div id="PieChart">C</div>
+  <div id="PieChart" />
 </template>
 
 <script>
@@ -8,7 +8,7 @@
 import * as d3 from 'd3'
 
 const data = require('../data/pieChart')
-console.log(data, 'data')
+// console.log(data, 'data')
 
 const width = 1000
 const height = 1000
@@ -51,18 +51,18 @@ export default {
       const svg = d3.select('#PieChart').append('svg')
         .attr('width', width)
         .attr('height', height)
-        .attr('viewBox', [-width / 2, -height / 2, width, height])
+        .attr('viewBox', [-width / 2, -height / 2, width, height]) // 实现显示的移动
 
-      const arc = d3.arc() // arc是一个回调函数
+      const arc = d3.arc() // arc是一个回调函数 传入一个扇型 就会返回一个 path 值
         .innerRadius(100) // 定义内径
         .outerRadius(Math.min(width, height) / 4 - 1) // 定义外径
 
-      const pie = d3.pie()
+      const pie = d3.pie() // 饼状图
         .sort(null)
         .value(d => d.value)
 
       const arcs = pie(data)
-      console.log(arcs, 'arcs')
+      // console.log(arcs, 'arcs')
 
       const color = d3.scaleOrdinal()
         .domain(data.map(d => d.name))
@@ -91,7 +91,7 @@ export default {
         .data(arcs)
         .join('text')
         .attr('transform', d => {
-          console.log(d, arcLabel().centroid(d)) // centroid 中点位置
+          // console.log(d, arcLabel().centroid(d)) // centroid 中点位置
           return `translate(${arcLabel().centroid(d)})`
         })
         .call(text => text.append('tspan')
