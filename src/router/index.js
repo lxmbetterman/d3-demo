@@ -32,6 +32,11 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/tree', // 树
+    component: () => import('../components/tree'),
+    hidden: true
+  },
+  {
     path: '/selection', // selection 的使用
     component: () => import('../components/selection'),
     hidden: true
