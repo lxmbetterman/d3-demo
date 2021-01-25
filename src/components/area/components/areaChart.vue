@@ -60,7 +60,7 @@ export default {
         //   console.log(x(d.date), 'x(d.date)')
           return x(dayjs(d.date)) // 参数传入时间对象 不能使用时间字符串
         })
-        .y0(y(0))
+        .y0(y(0)) // 试试 .y0(d => y(d.value / 2))
         .y1(d => y(d.value))
 
       const xAxis = g => g

@@ -7,7 +7,7 @@
 import * as d3 from 'd3'
 const data = require('../data/multiLine')
 // const data = require('../data/lineChart2') // missing data
-// console.log(data)
+console.log(data)
 data.dates = data.dates.map(date => new Date(date)) // 对于时间数据，提前处理成时间对象，这样有助于提高时间轴相关的性能
 
 const width = 1000

@@ -14,7 +14,7 @@ const margin = ({ top: 30, right: 0, bottom: 30, left: 40 })
 
 const random = d3.randomNormal(0, 1)
 const data = Array.from({ length: 300 }, () => [random(), random()])
-console.log(data, 'data')
+// console.log(data, 'data')
 export default {
   name: 'DelaunayfindZoom',
 
@@ -28,6 +28,7 @@ export default {
 
   mounted() {
     this.init()
+    // console.log(d3.geoPath)
   },
 
   methods: {
@@ -58,7 +59,7 @@ export default {
       let transform
 
       const zoom = d3.zoom().on('zoom', e => {
-        console.log(e.transform)
+        // console.log(e.transform)
         g.attr('transform', (transform = e.transform)) // 给g 添加 transform 属性
         g.style('stroke-width', 3 / Math.sqrt(transform.k))
         points.attr('r', 3 / Math.sqrt(transform.k))
@@ -71,8 +72,9 @@ export default {
         .on('pointermove', event => { // pointermove 相当于mousemove
           //  console.log(event)
           // 如果没有transform 则用x.revert(..)/y.revert(..) ;transform.invert 在这个基础上加上了 k缩放
+          // ⬇️The returned point is equal to [(x - tx) / k, (y - ty) / k].
           const p = transform.invert(d3.pointer(event)) // d3.pointer(event) 事件基于x y 的坐标； // 很强大
-          console.log(p, 'p')
+          //   console.log(p, 'p')
           const i = delaunay.find(...p)
           points.classed('highlighted', (_, j) => i === j) // 满足条件的添加class = highlighted
           //   d3.select(points.nodes()[i]).raise()

@@ -37,6 +37,21 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/fun', // selection 的使用
+    component: () => import('../components/fun'),
+    hidden: true
+  },
+  {
+    path: '/mapcolor', // 有限种颜色，地图相邻两个省份的颜色如何做到不相同
+    component: () => import('../components/mapColor'),
+    hidden: true
+  },
+  {
+    path: '/map', // 地图相关的
+    component: () => import('../components/map'),
+    hidden: true
+  },
+  {
     path: '/dayjs', // dayjs 时间插件的使用
     component: () => import('../components/dayjs'),
     hidden: true
