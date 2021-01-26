@@ -1,7 +1,7 @@
 <!--  -->
 <template>
   <div>
-    <BasicTree />
+    <!-- <BasicTree /> -->
     <CollapsibleTree />
   </div>
 </template>
@@ -12,7 +12,7 @@ import CollapsibleTree from './components/collapsibleTree'
 export default {
   name: '',
 
-  components: { BasicTree, CollapsibleTree },
+  components: { CollapsibleTree },
   data() {
     return {
     }

@@ -8,7 +8,7 @@
 
 <script>
 const treeData = require('./data/baiscTree.json')
-console.log(treeData)
+// console.log(treeData)
 
 import * as d3 from 'd3'
 const height = 500
@@ -88,7 +88,7 @@ export default {
           .x(d => d.y)
           .y(d => d.x))
         .attr('class', 'test')
-      console.log(root.descendants(), 'root.descendants()')
+      // console.log(root.descendants(), 'root.descendants()')
       const node = g.append('g')
         .attr('stroke-linejoin', 'round')
         .attr('stroke-width', 3)
@@ -109,6 +109,7 @@ export default {
         .clone(true).lower()
         .attr('stroke', 'white')
     }
+
   }
 }
 

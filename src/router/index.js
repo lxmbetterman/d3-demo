@@ -42,6 +42,11 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/transition', // selection 的使用
+    component: () => import('../components/transition'),
+    hidden: true
+  },
+  {
     path: '/fun', // selection 的使用
     component: () => import('../components/fun'),
     hidden: true
@@ -49,6 +54,11 @@ export const constantRoutes = [
   {
     path: '/mapcolor', // 有限种颜色，地图相邻两个省份的颜色如何做到不相同
     component: () => import('../components/mapColor'),
+    hidden: true
+  },
+  {
+    path: '/interpolator', // 有限种颜色，地图相邻两个省份的颜色如何做到不相同
+    component: () => import('../components/Interpolators'),
     hidden: true
   },
   {

@@ -9,9 +9,9 @@
 
 <script>
 
-const xz = require('../data/xz')
-const yz = require('../data/yz')
-const y01z = require('../data/y01z')
+const xz = require('../data/xz') // x轴值  1-57
+const yz = require('../data/yz') // y轴值  1-57 对应的值
+const y01z = require('../data/y01z') // stack值
 const n = 5
 const m = 28
 console.log(xz, 'xz')
@@ -78,19 +78,25 @@ export default {
         .join('g')
         .attr('fill', (d, i) => z(i))
         .selectAll('rect')
-        .data(d => d)
+        .data(d => {
+          console.log(d)
+          return d
+        }) // 五个组的数据
         .join('rect')
-        .attr('x', (d, i) => x(i))
-        .attr('y', height - margin.bottom)
+        .attr('x', (d, i) => {
+          console.log(d)
+          return x(i)
+        })
+        .attr('y', margin.bottom)
         .attr('width', x.bandwidth())
-        .attr('height', 0)
+        .attr('height', 1)
 
       svg.append('g')
         .call(xAxis)
 
       function transitionGrouped() { // 逻辑和数据结构有关，关注transition的用法
         y.domain([0, yMax])
-        rect.transition()
+        rect.transition() // 这里有5个rect
           .duration(500)
           .delay((d, i) => i * 20)
           .attr('x', (d, i) => x(i) + x.bandwidth() / n * d[2])
@@ -108,7 +114,7 @@ export default {
           .delay((d, i) => i * 20)
           .attr('y', d => y(d[1]))
           .attr('height', d => y(d[0]) - y(d[1]))
-          .transition() // 只控制紧跟着的属性
+          .transition() // transition只控制紧跟着的属性!!（错，都控制）
           .attr('x', (d, i) => x(i))
           .attr('width', x.bandwidth())
       }
