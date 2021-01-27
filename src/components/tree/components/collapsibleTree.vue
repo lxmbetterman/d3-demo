@@ -51,18 +51,20 @@ export default {
         .style('font', '10px sans-serif')
         .style('user-select', 'none')
 
-      const gLink = svg.append('g')
+      const gLink = svg.append('g') // 连线的g
         .attr('fill', 'none')
         .attr('stroke', '#555')
         .attr('stroke-opacity', 0.4)
         .attr('stroke-width', 1.5)
 
-      const gNode = svg.append('g')
+      const gNode = svg.append('g') // node 的 g
         .attr('cursor', 'pointer')
         .attr('pointer-events', 'all')
 
-      const diagonal = d3.linkHorizontal().x(d => d.y).y(d => d.x)
+      const diagonal = d3.linkHorizontal().x(d => d.y).y(d => d.x) // diagonal(d) 生成一个连线的path ，然后赋值给 d属性
       const tree = d3.tree().nodeSize([dx, dy]) // Compute the new tree layout.
+
+      // .attr('d', d3.linkHorizontal().x(d => d.y).y(d => d.x)) // linkHorizontal的固定用法
 
       function update(source) {
         const duration = 250
@@ -78,6 +80,10 @@ export default {
         root.eachBefore(node => { // 这一步就是记录最上面left/最下面right点node
           if (node.x < left.x) left = node
           if (node.x > right.x) right = node
+          // Stash the old positions for transition.
+          // 记录当前位置为x0 y0
+          node.x0 = node.x
+          node.y0 = node.y
         })
 
         const height = right.x - left.x + margin.top + margin.bottom
@@ -93,7 +99,7 @@ export default {
         const node = gNode.selectAll('g')
           .data(nodes, d => d.id)
 
-        // Enter any new nodes at the parent's previous position.
+        // Enter any new nodes at the parent's previous position. 把node点首先放到旧位置
         const nodeEnter = node.enter().append('g')
           .attr('transform', d => `translate(${source.y0},${source.x0})`)
           .attr('fill-opacity', 0)
@@ -118,7 +124,7 @@ export default {
           .attr('stroke-width', 3)
           .attr('stroke', 'white')
 
-        // Transition nodes to their new position.
+        // Transition nodes to their new position. // 把node从就位置transition到新位置
         const nodeUpdate = node.merge(nodeEnter).transition(transition)
           .attr('transform', d => `translate(${d.y},${d.x})`)
           .attr('fill-opacity', 1)
@@ -130,6 +136,7 @@ export default {
           .attr('fill-opacity', 0)
           .attr('stroke-opacity', 0)
 
+        // link 是相同的操作
         // Update the links…
         const link = gLink.selectAll('path')
           .data(links, d => d.target.id)
@@ -151,13 +158,6 @@ export default {
             const o = { x: source.x, y: source.y }
             return diagonal({ source: o, target: o })
           })
-
-        // Stash the old positions for transition.
-        // 记录当前位置为x0 y0
-        root.each(d => {
-          d.x0 = d.x
-          d.y0 = d.y
-        })
       }
 
       update(root)
