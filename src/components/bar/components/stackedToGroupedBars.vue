@@ -14,9 +14,9 @@ const yz = require('../data/yz') // y轴值  1-57 对应的值
 const y01z = require('../data/y01z') // stack值
 const n = 5
 const m = 28
-console.log(xz, 'xz')
-console.log(yz, 'yz')
-console.log(y01z, 'y01z')
+// console.log(xz, 'xz')
+// console.log(yz, 'yz')
+// console.log(y01z, 'y01z')
 
 import * as d3 from 'd3'
 const width = 1000
@@ -79,12 +79,12 @@ export default {
         .attr('fill', (d, i) => z(i))
         .selectAll('rect')
         .data(d => {
-          console.log(d)
+          // console.log(d)
           return d
         }) // 五个组的数据
         .join('rect')
         .attr('x', (d, i) => {
-          console.log(d)
+          // console.log(d)
           return x(i)
         })
         .attr('y', margin.bottom)

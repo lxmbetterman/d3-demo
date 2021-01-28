@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <div>
+  <div style="min-width:1000px">
     <p>basicTree</p>
     <div id="BasicTree" />
   </div>

@@ -1,12 +1,12 @@
 <!--  -->
 <template>
-  <div id="barEL">
-    <p>bar 基础例子</p>
-    <div>api学习：d3.scaleBand / d3.scaleLinear / d3.max/ d3.range(data.length)返回数组/ </div>
-  </div>
+  <div id="barEL" />
 </template>
 
 <script>
+import EleResize from '@/utils/resize.js'
+import { debounce } from '@/utils/index.js'
+console.log(debounce)
 import * as d3 from 'd3'
 // const data = [99, 71, 78, 25, 36, 92]
 
@@ -19,25 +19,34 @@ const data = [
   { name: 'E', value: 0.16702 }
 ]
 const color = 'steelblue'
-const height = 500
-const width = 500
-const margin = ({ top: 30, right: 0, bottom: 30, left: 40 })
+let height = 500
+let width = 500
+const margin = ({ top: 30, right: 20, bottom: 30, left: 40 })
 
 export default {
   name: 'NonVueLineChart',
+  data() {
+    return {
+      SVG: null
+    }
+  },
   mounted() {
+    width = this.$el.offsetWidth
+    EleResize.on(this.$el, debounce(this.handleElResize, 500))
     this.init()
-
-    // var x = d3.scaleLinear()
-    //   .domain([10, 130])
-    //   .range([0, 960])
-    // console.log(x.invert(81.22))
-    // console.log(x(81.22))
   },
   methods: {
+    handleElResize() {
+      console.log(this.$el.offsetWidth, this.$el.offsetHeight)
+      height = this.$el.offsetHeight
+      width = this.$el.offsetWidth
+      this.init()
+    },
     init() {
-      const svg = d3.select(this.$el).append('svg')
-        .attr('width', 500)
+      this.SVG && this.SVG.remove()
+      // d3.select('svg').selectAll('*').remove()
+      this.SVG = d3.select(this.$el).append('svg')
+        .attr('width', width)
         .attr('height', 500)
 
       const x = d3.scaleBand()
@@ -64,7 +73,7 @@ export default {
           .attr('text-anchor', 'start')
           .text('1111'))
 
-      svg.append('g')
+      this.SVG.append('g')
         .attr('fill', color)
         .selectAll('rect')
         .data(data)
@@ -74,10 +83,10 @@ export default {
         .attr('height', d => y(0) - y(d.value))
         .attr('width', x.bandwidth())
 
-      svg.append('g')
+      this.SVG.append('g')
         .call(xAxis)
 
-      svg.append('g')
+      this.SVG.append('g')
         .call(yAxis)
     }
   }
