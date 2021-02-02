@@ -33,6 +33,7 @@
 </template>
 
 <script>
+const simplify = require('simplify-js')
 // topojson.feature - convert TopoJSON to GeoJSON.
 import * as d3 from 'd3'
 import * as topojson from 'topojson-client'
@@ -44,6 +45,7 @@ const data = require('../data/chinageoTopo')
 
 const provinces = topojson.feature(data, 'chinageo').features
 const neighbors = topojson.neighbors(data.objects.chinageo.geometries) // 返回一个数组 数字的index表示当前省份 在provinces重的index
+const provincesMess = topojson.mesh(data, data.objects.chinageo) // 计算网格 可以再simplify-js
 
 const palettes = ({
   'Wes Anderson': ['#ff4848', '#00cdb1', '#ffc638', '#ffa641', '#a0d8e7'],
@@ -151,6 +153,10 @@ export default {
       const projection = d3.geoMercator() // 设置一个project
         .center([105, 48]) // 经纬度
         .scale(height * 0.85)
+      // console.log(projection(provincesMess.coordinates))
+      const meshPathData = (provincesMess.coordinates[0].map(item => {
+        return (projection(item))
+      }))
 
       const path = d3.geoPath().projection(projection)
 
@@ -171,6 +177,37 @@ export default {
         .attr('filter', d => {
           return `url(#${d.id})`
         })
+        .on('click', (event, d) => {
+          // 牢记 projection 的作用
+          const data1 = d.geometry.coordinates[0].filter((item, index) => index % 2 === 0).map((item) => projection(item))
+          drawMesh(data1)
+          // console.log(d3.geoPath(d))
+        })
+
+      const groupsMesh = this.svg
+        // .selectAll()
+        // .data(meshPathData)
+        // .enter()
+        .append('g')
+        .attr('class', 'provincesMesh')
+        .attr('filter', 'url(#pencilid)')
+
+      defs.append('filter').attr('id', 'pencilid')
+        .html(`<feTurbulence baseFrequency="0.03" numOctaves="6" type="fractalNoise" />
+      <feDisplacementMap scale="4" in="SourceGraphic" xChannelSelector="R" yChannelSelector="G" />
+      <feGaussianBlur stdDeviation="0.5" />`)
+
+      function drawMesh(data) {
+        var line = d3.line()
+          .x(function(d) { return d[0] })
+          .y(function(d) { return d[1] })
+          .curve(d3.curveCardinal.tension(0))
+        const groupsMeshPath = groupsMesh
+          .append('path')
+          .attr('d', line(data))
+          .attr('stroke', '#aaa')
+          .attr('fill', 'none')
+      }
 
       const blurScale = d3
         .scaleLinear()
