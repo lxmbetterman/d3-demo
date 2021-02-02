@@ -1,22 +1,29 @@
 <!--  -->
 <template>
-  <div style="min-width:1000px">
-    <p>basicTree</p>
-    <div id="BasicTree" />
+  <div style="position:relative" @click="hideTips">
+    <div @click="findNode">查询条件</div>
+    <div id="menuTreeTips">
+      <el-alert
+        title="点击查看详情"
+        type="success"
+        center
+        :closable="false"
+        :show-icon="false"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-const treeData = require('./data/baiscTree.json')
-// console.log(treeData)
-
 import * as d3 from 'd3'
+// console.log(d3)
+const treeData = require('./baiscTree.json')
 console.log(treeData)
 const width = 1000
 
 let root = null
 export default {
-  name: 'BasicTree',
+  name: 'MenuTree',
 
   components: {},
   data() {
@@ -27,28 +34,15 @@ export default {
   computed: {},
 
   mounted() {
-    const table = [
-      { 'name': 'Eve', 'parent': '' },
-      { 'name': 'Cain', 'parent': 'Eve' },
-      { 'name': 'Seth', 'parent': 'Eve' },
-      { 'name': 'Enos', 'parent': 'Seth' },
-      { 'name': 'Noam', 'parent': 'Seth' },
-      { 'name': 'Abel', 'parent': 'Eve' },
-      { 'name': 'Awan', 'parent': 'Eve' },
-      { 'name': 'Enoch', 'parent': 'Awan' },
-      { 'name': 'Azura', 'parent': 'Eve' }
-    ]
-
-    var root = d3.stratify()
-      .id(function(d) { return d.name })
-      .parentId(function(d) { return d.parent })(table)
-    // console.log(root, 'stratify')
     this.init()
   },
 
   methods: {
+    hideTips() {
+      d3.select('#menuTreeTips').style('display', 'none')
+    },
     init() {
-      function length(path) { // 计算path的长度 ！！
+      function length(path) { // 计算path的长度
         return d3.create('svg:path').attr('d', path).node().getTotalLength()
       }
       const linkLine = d3.linkHorizontal()
@@ -100,6 +94,10 @@ export default {
         .join('path')
 
       link
+        // .transition(t)
+        // .delay(function(d, i) {
+        //   return d.source.depth * 500
+        // })
         .attr('d', (d, i) => {
           const linkPath = linkLine(d)
           d.pathLength = length(linkPath)
@@ -108,7 +106,7 @@ export default {
         .attr('stroke-dasharray', d => `0,${d.pathLength}`)
         .transition(t)
         .delay(function(d, i) {
-          return d.source.depth * 600
+          return d.source.depth * 200
         })
         .attr('stroke-dasharray', d => `${d.pathLength},${d.pathLength}`)
 
@@ -160,18 +158,24 @@ export default {
         })
         .clone(true).lower()
         .attr('stroke', 'white')
+    },
+    findNode() {
+      // Converters
+      // node.find
+      const findedNode = root.find((d) => {
+        // console.log(d)
+        return d.data.name === 'Converters'
+      })
+      console.log(findedNode)
     }
-
   }
 }
 
 </script>
-<style lang='css'>
-.test{
-    cursor: pointer;
-}
-.test:hover{
-    stroke:red;
-    stroke-width:5;
+<style lang='scss' scoped>
+#menuTreeTips{
+  display: none;
+  cursor: pointer;
+  z-index: 10000000;
 }
 </style>

@@ -39,27 +39,11 @@ import * as topojson from 'topojson-client'
 
 const width = 1000
 const height = 1000
-// const margin = ({ top: 30, right: 0, bottom: 30, left: 40 })
-// const provinces = require('../data/chinageoTopo')
+
 const data = require('../data/chinageoTopo')
-console.log(data)
-console.log(topojson.mesh(data, data.objects.chinageo), '@@@@@@@@@') // 网格线
+
 const provinces = topojson.feature(data, 'chinageo').features
-console.log(provinces) //  If the specified object is a string, it is treated as topology.objects[object].
 const neighbors = topojson.neighbors(data.objects.chinageo.geometries) // 返回一个数组 数字的index表示当前省份 在provinces重的index
-console.log(neighbors, 'neighbors')
-
-// const mesh = topojson.mesh(data, data.objects.chinageo).map(line =>
-//   simplify(line.map(d => ({ x: d[0], y: d[1] })), 1.8, true).map(
-//     d => [d.x, d.y]
-//   )
-// )
-console.log(222222)
-// Generate Observable-friendly IDs
-
-// provinces.forEach((d, i) => {
-//   d.filterUid = ('filter' + i)
-// })
 
 const palettes = ({
   'Wes Anderson': ['#ff4848', '#00cdb1', '#ffc638', '#ffa641', '#a0d8e7'],

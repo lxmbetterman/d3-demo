@@ -300,4 +300,6 @@ export default {
 #myClip circle {
   animation: openYourHeart 15s infinite;
 }
+
 </style>
+

@@ -17,7 +17,7 @@ import * as d3 from 'd3'
 
 const width = 1000
 const height = 500
-const margin = ({ top: 30, right: 30, bottom: 30, left: 40 })
+const margin = ({ top: 30, right: 30, bottom: 90, left: 40 })
 export default {
   name: 'ZoomableAreaChart',
 
@@ -35,10 +35,19 @@ export default {
 
   methods: {
     init() {
+      var strictIsoParse = d3.timeFormat('%Y/%m/%d')
       const svg = d3.select('#ZoomableAreaChart').append('svg')
         .attr('width', width)
         .attr('height', height)
         .attr('viewBox', [0, 0, width, height]) // 实现显示的移动
+
+      svg.append('clipPath')
+        .attr('id', 'rectClipPath')
+        .append('rect')
+        .attr('x', margin.left)
+        .attr('y', margin.top)
+        .attr('width', width - margin.left - margin.right)
+        .attr('height', height - margin.top - margin.bottom)
 
       const x = d3.scaleUtc()
         .domain(d3.extent(data, d => d.date)) // x轴的 domain
@@ -50,7 +59,10 @@ export default {
 
       const xAxis = (g, x) => g
         .attr('transform', `translate(0,${height - margin.bottom})`)
-        .call(d3.axisBottom(x).ticks(width / 80).tickSizeOuter(0))
+        .call(d3.axisBottom(x).tickFormat(d => {
+          return strictIsoParse(d)
+        }).ticks().tickSizeOuter(0))
+      console.log(xAxis)
 
       const yAxis = (g, y) => g
         .attr('transform', `translate(${margin.left},0)`)
@@ -69,12 +81,14 @@ export default {
         .y1(d => y(d.value))(data)
 
       const path = svg.append('path')
-        // .attr('clip-path', clip)
+        .attr('clip-path', 'url(#rectClipPath)')
         .attr('fill', 'steelblue')
         .attr('d', area(data, x))
 
       const gx = svg.append('g')
         .call(xAxis, x)
+
+      // gx.selectAll(' text').attr('transform', 'translate(56,56) rotate(20)')
 
       svg.append('g')
         .call(yAxis, y)
@@ -83,10 +97,11 @@ export default {
         const zoomedX = event.transform.rescaleX(x)
         path.attr('d', area(data, zoomedX))
         gx.call(xAxis, zoomedX) //
+        gx.selectAll(' text').attr('transform', 'translate(10,50) rotate(-45)')
       }
 
       const zoom = d3.zoom()
-        .scaleExtent([1, 32])
+        .scaleExtent([1, Infinity])
         .extent([[margin.left, 0], [width - margin.right, height]])
         .translateExtent([[margin.left, -Infinity], [width - margin.right, Infinity]])
         .on('zoom', zoomed)
