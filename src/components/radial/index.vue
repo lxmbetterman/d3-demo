@@ -5,18 +5,21 @@
 
     <p>基础pie chart</p>
     <PieChart />
-    ----
+    <p>-------------------</p>
     <RadialStackedBarChart />
+
+    <ZoomableSunburst />
   </div>
 </template>
 
 <script>
 import PieChart from './components/pieChart'
 import RadialStackedBarChart from './components/radialStackedBarChart'
+import ZoomableSunburst from './components/zoomableSunburst'
 export default {
   name: '',
 
-  components: { PieChart, RadialStackedBarChart },
+  components: { PieChart, RadialStackedBarChart, ZoomableSunburst },
   data() {
     return {
     }

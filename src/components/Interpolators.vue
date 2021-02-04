@@ -31,6 +31,11 @@ export default {
 
     var whiteblue = d3.interpolateRgb('#eee', 'steelblue')
     console.log(whiteblue(0.5))
+
+    // 不同的插入器range(0，1) --> domain为不同的值
+    console.log(d3.interpolateRainbow(0.5))
+
+    // d3.quantize 按不同的插入器取样 d3.quantize(interpolator, n) n按等序取样的个数
   },
 
   methods: {}

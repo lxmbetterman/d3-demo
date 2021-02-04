@@ -16,7 +16,6 @@ const outerRadius = 487.5
 const data = require('../data/radialStackedBarChart').sort((a, b) => b.total - a.total)
 const keys = ['Under 5 Years', '5 to 13 Years', '14 to 17 Years', '18 to 24 Years', '25 to 44 Years', '45 to 64 Years', '65 Years and Over']
 
-console.log(data)
 export default {
   name: 'RadialStackedBarChart',
 
@@ -38,8 +37,6 @@ export default {
         .attr('width', width)
         .attr('height', height)
         .attr('viewBox', [-width / 2, -height / 2, width, height]) // 实现显示的移动
-
-      console.log(d3.stack().keys(keys)(data))
 
       const z = d3.scaleOrdinal()
         .domain(keys)
@@ -89,7 +86,6 @@ export default {
               : 'rotate(-90)translate(0,-9)')
             .text(d => d.State)))
 
-      console.log(y.ticks(), '^^^^') // 1
       const yAxis = g => g
         .attr('text-anchor', 'middle')
         .call(g => g.append('text')

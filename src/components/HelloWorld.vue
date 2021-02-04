@@ -274,6 +274,18 @@
       <rect fill="url(#Pattern)" stroke="black" width="200" height="200" />
     </svg>
 
+    <p>svg 中加入图片</p>
+    <svg width="320" height="320" xmlns="http://www.w3.org/2000/svg">
+      <g>
+        <image xlink:href="http://f10.baidu.com/it/u=107851725,1461296661&fm=76" x="160" y="160" height="100" width="100">
+          <animate attributeName="x" values="160;40;160;" dur="3s" repeatCount="indefinite" />
+        </image>
+      </g>
+    </svg>
+
+    <p>SVG gallery</p>
+    <svg id="svgGallery" />
+
   </div>
 </template>
 
@@ -301,5 +313,10 @@ export default {
   animation: openYourHeart 15s infinite;
 }
 
+#svgGallery{
+  width: 1200px;
+  height: 200px;
+  background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3MCIgaGVpZ2h0PSI3MCI+CjxyZWN0IHdpZHRoPSI3MCIgaGVpZ2h0PSI3MCIgZmlsbD0iI2JiZDgxNyI+PC9yZWN0Pgo8ZyB0cmFuc2Zvcm09InJvdGF0ZSg0NSkiPgo8cmVjdCB3aWR0aD0iOTkiIGhlaWdodD0iMjUiIGZpbGw9IiNhOWNlMDAiPjwvcmVjdD4KPHJlY3QgeT0iLTUwIiB3aWR0aD0iOTkiIGhlaWdodD0iMjUiIGZpbGw9IiNhOWNlMDAiPjwvcmVjdD4KPC9nPgo8L3N2Zz4=");
+}
 </style>
 

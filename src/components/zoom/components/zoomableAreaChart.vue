@@ -57,12 +57,11 @@ export default {
         .domain([0, d3.max(data, d => d.value)]).nice()
         .range([height - margin.bottom, margin.top])
 
-      const xAxis = (g, x) => g
+      const xAxis = (g, zoomx) => g
         .attr('transform', `translate(0,${height - margin.bottom})`)
-        .call(d3.axisBottom(x).tickFormat(d => {
+        .call(d3.axisBottom(zoomx).tickFormat(d => {
           return strictIsoParse(d)
         }).ticks().tickSizeOuter(0))
-      console.log(xAxis)
 
       const yAxis = (g, y) => g
         .attr('transform', `translate(${margin.left},0)`)
@@ -74,7 +73,7 @@ export default {
           .attr('font-weight', 'bold')
           .text(data.y))
 
-      const area = (data, zoomedX) => d3.area()
+      const area = (data, zoomedX) => d3.area() // 这个area 需要自定义处理zoom
         .curve(d3.curveStepAfter) // 很多折线类型
         .x(d => zoomedX(d.date))
         .y0(y(0))
@@ -93,7 +92,7 @@ export default {
       svg.append('g')
         .call(yAxis, y)
 
-      function zoomed(event) {
+      function zoomed(event) { // event.transform.rescaleX
         const zoomedX = event.transform.rescaleX(x)
         path.attr('d', area(data, zoomedX))
         gx.call(xAxis, zoomedX) //

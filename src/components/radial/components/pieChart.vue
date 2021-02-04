@@ -43,7 +43,6 @@ export default {
 
     var arcs1 = d3.pie()
       .value(function(d) { return d.number })(data1)
-    // console.log(arcs1, '111')
   },
 
   methods: {
@@ -62,7 +61,6 @@ export default {
         .value(d => d.value)
 
       const arcs = pie(data)
-      // console.log(arcs, 'arcs')
 
       const color = d3.scaleOrdinal()
         .domain(data.map(d => d.name))
