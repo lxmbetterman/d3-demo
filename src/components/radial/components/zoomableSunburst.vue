@@ -2,7 +2,7 @@
 <template>
   <div>
     <p>Zoomable Sunburst</p>
-    <el-button @click="test" />
+    <el-button @click="test" /><el-button id="rotate">旋转</el-button>
     <div id="ZoomableSunburst" />
   </div>
 </template>
@@ -27,13 +27,14 @@ function partition(data) {
 }
 const root = partition(data)
 root.each(d => { d.current = d }) // 类似于tree的each 遍历所有node
+const startAngle = 0
 const arc = d3.arc() // arc() 只关注x0 x1 y0 y1
-  .startAngle(d => d.x0)
-  .endAngle(d => d.x1)
+  .startAngle(d => d.x0 + startAngle)
+  .endAngle(d => d.x1 + startAngle)
   .padAngle(0.005)
   .padRadius(radius * 1.5)
-  .innerRadius(d => d.y0 * radius)
-  .outerRadius(d => Math.max(d.y0 * radius, d.y1 * radius - 1))
+  .innerRadius(d => d.y0 * radius) // 内径
+  .outerRadius(d => Math.max(d.y0 * radius, d.y1 * radius - 1)) // 外径
 
 const color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, data.children.length + 1)) // 离散刻度尺
 // 不指定domain 每次调用color('name'),都会把name 加到domain里！！！
@@ -55,6 +56,9 @@ export default {
   },
 
   methods: {
+    rotate() {
+
+    },
     test() {
       console.log(color.domain())
     },
@@ -78,7 +82,7 @@ export default {
           }
         })
         .attr('fill-opacity', d => arcVisible(d.current) ? (d.children ? 0.7 : 0.3) : 0)
-        .attr('d', d => arc(d.current))
+        .attr('d', d => arc(d.current)) // d.current 取的是current的数据
 
       path.filter(d => d.children)
         .style('cursor', 'pointer')
@@ -106,6 +110,8 @@ export default {
         .attr('pointer-events', 'all')
         .on('click', clicked) // 记住：绑定事件 listener的参数一始终是event 参数二参数参入的d
 
+      clicked(null, root) // 计算 target
+
       function arcVisible(d) { // 控制可见扇叶的层数
         // 解释： 对于同级 每个node下的height表示children含有多少层。depth表示离顶节点的层数差
         // 而y0 y1 和height是相反的，最顶层的y0===0；y1===1
@@ -116,7 +122,7 @@ export default {
         return d.y1 <= 3 && d.y0 >= 1 && (d.y1 - d.y0) * (d.x1 - d.x0) > 0.03
       }
       function labelTransform(d) {
-        const x = (d.x0 + d.x1) / 2 * 180 / Math.PI
+        const x = (startAngle + (d.x0 + d.x1) / 2) * 180 / Math.PI
         const y = (d.y0 + d.y1) / 2 * radius
         return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})` // 文字transform 的顺序？
       }
@@ -134,9 +140,7 @@ export default {
           }
         })
 
-        console.log(root, '!!!!!!!')
-
-        const t = g.transition().duration(7500)
+        const t = g.transition().duration(750)
 
         // Transition the data on all arcs, even the ones that aren’t visible,
         // so that if this transition is interrupted, entering arcs will start
@@ -158,6 +162,23 @@ export default {
           .attr('fill-opacity', d => +labelVisible(d.target))
           .attrTween('transform', d => () => labelTransform(d.current))
       }
+      // function rot() {
+      //   const beforeAnle = startAngle
+      //   startAngle += 10 / 180 * Math.PI
+      //   const t = g.transition().duration(750)
+      //   path.transition(t)
+      //     .tween('data', d => { // tween('props',d=>{// 给元素从新绑定值}) props可以随意制定 主要是为了设置 d.current = i(t)  这一步
+      //       const i = d3.interpolate(beforeAnle, startAngle)
+      //       return t => { d.tragetRotate = i(t) } // 设置d.current!!!
+      //     })
+      //     .filter(function(d) { // filter 怎么用？？？？
+      //       return +this.getAttribute('fill-opacity') || arcVisible(d.target) // 过滤掉可见的数据提高性能？？
+      //     })
+      //     .attr('class', d => {
+      //       console.log(d, '111')
+      //     })
+      // }
+      // document.getElementById('rotate').addEventListener('click', rot)
     }
   }
 }

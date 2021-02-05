@@ -36,6 +36,10 @@ export default {
     console.log(d3.interpolateRainbow(0.5))
 
     // d3.quantize 按不同的插入器取样 d3.quantize(interpolator, n) n按等序取样的个数
+
+    // range(..).interpolate(d3.interpolateHcl) 指定range的插入器??
+    var color = d3.scaleLinear().domain([10, 100]).range(['brown', 'steelblue']).interpolate(d3.interpolateHcl)
+    console.log(color(50), '@@@')
   },
 
   methods: {}
