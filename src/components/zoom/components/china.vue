@@ -44,10 +44,14 @@ export default {
         .center([105, 48]) // 经纬度
         .scale(height * 0.7)
 
-      console.log(projection([105, 40]), '1111') // 用于经纬度转 x,y
+      // console.log(projection([105, 40]), '1111') // 用于经纬度转 x,y
 
       const path = d3.geoPath()
         .projection(projection)
+
+      console.log(data.features.map(item => {
+        console.log(path(item))
+      }), 'data.features')
 
       // const states = g.append('g')
       //   .attr('fill', '#444')
@@ -89,7 +93,7 @@ export default {
 
       function clicked(event, d) {
         const [[x0, y0], [x1, y1]] = path.bounds(d) // 返回 path 的边界坐标 当前点击的province 的path
-        console.log([x0, y0], [x1, y1])
+        // console.log([x0, y0], [x1, y1])
         event.stopPropagation() // 冒泡
         privince.transition().style('fill', null) // style的fill和属性fill有两个控制fill颜色的
         d3.select(this).transition().style('fill', 'red')

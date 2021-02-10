@@ -41,7 +41,7 @@ import * as topojson from 'topojson-client'
 const width = 1000
 const height = 1000
 
-const data = require('../data/chinageoTopo')
+const data = require('../data/chinageoTopo')// geoJson 可以转化为 topoJson
 
 const provinces = topojson.feature(data, 'chinageo').features
 const neighbors = topojson.neighbors(data.objects.chinageo.geometries) // 返回一个数组 数字的index表示当前省份 在provinces重的index
