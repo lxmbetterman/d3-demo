@@ -127,6 +127,52 @@ export const constantRoutes = [
     component: () => import('../components/G6/g6RegisterNodeCustoDom'),
     hidden: true
   },
+  // G6的官方例子
+  {
+    path: '/dagre/basicDagre',
+    component: () => import('../components/G6/dagre/basicDagre'),
+    hidden: true
+  },
+  {
+    path: '/dagre/LRDagre',
+    component: () => import('../components/G6/dagre/LRDagre'),
+    hidden: true
+  },
+  // g6自定义节点node
+  {
+    path: '/customNode/card',
+    component: () => import('../components/G6/customNode/card'),
+    hidden: true
+  },
+  {
+    path: '/customNode/cardNode',
+    component: () => import('../components/G6/customNode/cardNode'),
+    hidden: true
+  },
+  // g6自定义edge
+  {
+    path: '/customEdge/extraShape',
+    component: () => import('../components/G6/customEdge/extraShape'),
+    hidden: true
+  },
+  // g6自定义contextMenu
+  {
+    path: '/contextMenu/contextMenu',
+    component: () => import('../components/G6/contextMenu/contextMenu'),
+    hidden: true
+  },
+  // g6 创建edge
+  {
+    path: '/createEdge/createEdge',
+    component: () => import('../components/G6/createEdge/createEdge'),
+    hidden: true
+  },
+  { // setMode 添加node/edge
+    path: '/createEdge/setMode',
+    component: () => import('../components/G6/createEdge/setMode'),
+    hidden: true
+  },
+
   // demo relate
   {
     path: '/demo1Relate-sticky-force-layout',

@@ -13,6 +13,8 @@
     "core-js": "^3.8.3",
     "dayjs": "^1.10.3",
     "element-plus": "^1.0.2-beta.28",
+    "insert-css": "^2.0.0",
+    "node-sass": "^4.14.1",
     "path": "^0.12.7",
     "simplify-js": "^1.2.4",
     "topojson-client": "^3.1.0",
@@ -27,7 +29,8 @@
     "babel-eslint": "^10.1.0",
     "d3": "^6.3.1",
     "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0-0"
+    "eslint-plugin-vue": "^7.0.0-0",
+    "sass-loader": "^7.3.1"
   },
   "eslintConfig": {
     "root": true,
