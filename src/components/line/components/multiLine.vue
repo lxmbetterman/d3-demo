@@ -100,7 +100,7 @@ export default {
           .attr('display', 'none')
 
         dot.append('circle')
-          .attr('r', 2.5)
+          .attr('r', 10)
 
         dot.append('text')
           .attr('font-family', 'sans-serif')

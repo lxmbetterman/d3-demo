@@ -9,6 +9,7 @@
     "report": "vue-cli-service build --report -json"
   },
   "dependencies": {
+    "@antv/g6": "^4.1.13",
     "core-js": "^3.8.3",
     "dayjs": "^1.10.3",
     "element-plus": "^1.0.2-beta.28",

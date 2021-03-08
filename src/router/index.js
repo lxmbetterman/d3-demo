@@ -80,6 +80,68 @@ export const constantRoutes = [
     path: '/scaleTime', // scaleTime 的使用
     component: () => import('../components/scaleTime'),
     hidden: true
+  },
+  { // force
+    path: '/sticky-force-layout', // scaleTime 的使用
+    component: () => import('../components/force/sticky-force-layout'),
+    hidden: true
+  },
+  // G6 的demo
+  {
+    path: '/g6Basic',
+    component: () => import('../components/G6/g6Basic'),
+    hidden: true
+  },
+  {
+    path: '/g6Basic2',
+    component: () => import('../components/G6/g6Basic2'),
+    hidden: true
+  },
+  {
+    path: '/g6Basic3',
+    component: () => import('../components/G6/g6Basic3'),
+    hidden: true
+  },
+  {
+    path: '/g6RegisterNode',
+    component: () => import('../components/G6/g6RegisterNode'),
+    hidden: true
+  },
+  {
+    path: '/g6RegisterNode2',
+    component: () => import('../components/G6/g6RegisterNode2'),
+    hidden: true
+  },
+  {
+    path: '/g6AnchorPoint',
+    component: () => import('../components/G6/g6AnchorPoint'),
+    hidden: true
+  },
+  {
+    path: '/g6RegisterNodeCustom',
+    component: () => import('../components/G6/g6RegisterNodeCustom'),
+    hidden: true
+  },
+  {
+    path: '/g6RegisterNodeCustoDom',
+    component: () => import('../components/G6/g6RegisterNodeCustoDom'),
+    hidden: true
+  },
+  // demo relate
+  {
+    path: '/demo1Relate-sticky-force-layout',
+    component: () => import('../demo1Relate/sticky-force-layout'),
+    hidden: true
+  },
+  {
+    path: '/sticky-force-curve-layout',
+    component: () => import('../demo1Relate/sticky-force-curve-layout'),
+    hidden: true
+  },
+  {
+    path: '/spline-editor',
+    component: () => import('../demo1Relate/spline-editor'),
+    hidden: true
   }
 
 ]
