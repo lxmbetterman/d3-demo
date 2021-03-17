@@ -127,6 +127,7 @@ export const constantRoutes = [
     component: () => import('../components/G6/g6RegisterNodeCustoDom'),
     hidden: true
   },
+  // -----------
   // G6的官方例子
   {
     path: '/dagre/basicDagre',
@@ -172,6 +173,7 @@ export const constantRoutes = [
     component: () => import('../components/G6/createEdge/setMode'),
     hidden: true
   },
+  // -----------------
 
   // demo relate
   {
@@ -187,6 +189,11 @@ export const constantRoutes = [
   {
     path: '/spline-editor',
     component: () => import('../demo1Relate/spline-editor'),
+    hidden: true
+  },
+  {
+    path: '/dragline', // anchor 拖动出连线
+    component: () => import('../demo1Relate/dragline/dragline.vue'),
     hidden: true
   }
 

@@ -109,6 +109,7 @@ export default {
                   textBaseline: 'top',
                   y: 25,
                   x: 24 + index * 60,
+                  width: 30,
                   lineHeight: 20,
                   text: item.title,
                   fill: 'rgba(0,0,0, 0.4)'
@@ -190,7 +191,7 @@ export default {
             id: 'node3',
             nodeLevel: 3,
             panels: [
-              { title: '成功率', value: '11%' },
+              { title: '成功率成功率成功率', value: '11%' },
               { title: '耗时', value: '111' },
               { title: '错误数', value: '111' }
             ],
