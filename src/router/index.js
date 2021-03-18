@@ -195,6 +195,11 @@ export const constantRoutes = [
     path: '/dragline', // anchor 拖动出连线
     component: () => import('../demo1Relate/dragline/dragline.vue'),
     hidden: true
+  },
+  {
+    path: '/draglineV2', // anchor 拖动出连线
+    component: () => import('../demo1Relate/dragline/draglineV2.vue'),
+    hidden: true
   }
 
 ]

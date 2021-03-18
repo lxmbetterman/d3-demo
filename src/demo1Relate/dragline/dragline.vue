@@ -38,8 +38,9 @@ export default {
 
         function dragged(event, d) {
           const g = d3.select(this)
-          g.selectAll('rect').attr('x', d.x = event.x).attr('y', d.y = event.y)
-          g.selectAll('circle').attr('cx', d.x = event.x).attr('cy', d.y = event.y)
+          console.log(g, 'ggg')
+          g.selectAll('rect.rect').attr('x', d.x = event.x).attr('y', d.y = event.y)
+          g.selectAll('circle.circle').attr('cx', d.x = event.x).attr('cy', d.y = event.y)
         }
 
         function dragended(event, d) {
@@ -79,6 +80,7 @@ export default {
         .join('g')
         .call(drag())
       nodeGroup.append('rect')
+        .attr('class', 'rect')
         .attr('x', d => d.x)
         .attr('y', d => d.y)
         .attr('transform', `translate(${-size / 2},${-size / 2})`)
@@ -90,6 +92,7 @@ export default {
 
       nodeGroup
         .append('circle')
+        .attr('class', 'circle')
         .attr('cx', d => d.x)
         .attr('cy', d => d.y)
         .attr('r', d => {
