@@ -10,9 +10,9 @@ const height = 500
 const margin = ({ top: 30, right: 0, bottom: 30, left: 40 })
 const size = 60
 const nodes = [
-  { id: 'node1', x: 100, y: 200, r: 3 },
-  { id: 'node2', x: 500, y: 300, r: 3 },
-  { id: 'node3', x: 300, y: 200, r: 3 }
+  { id: 'node1', x: 100, y: 200, r: 6 },
+  { id: 'node2', x: 500, y: 300, r: 6 },
+  { id: 'node3', x: 300, y: 200, r: 6 }
 ]
 let edges = [
   { id: 'edge1', source: 'node1', target: 'node2', movePonit: null }
@@ -26,7 +26,8 @@ export default {
   components: {},
   data() {
     return {
-      svg: null
+      svg: null,
+      zoomG: null
     }
   },
 
@@ -51,8 +52,6 @@ export default {
           g.attr('transform', d => {
             d.x = event.x
             d.y = event.y
-
-            // console.log(d, edgeTarget, 'edgeTarget')
             return `translate(${d.x},${d.y})`
           })
           that.updateEdges()
@@ -75,6 +74,7 @@ export default {
       this.svg = svg
 
       const zoomG = svg.append('g')
+      this.zoomG = zoomG
 
       const nodeGroup = zoomG.selectAll('g')
         .data(nodes)
@@ -107,19 +107,44 @@ export default {
 
       svg.call(zoom)
     },
-    drawNodeAnchor(nodes) {
+    drawNodeAnchor(nodeGroup) {
+      const that = this
+      let newEdge = null
       const drag2 = () => { // 封装drag 的写法
         function dragstarted(event, d) {
           console.log('drag2 start')
+          newEdge = that.addNewEdge()
         }
 
         function dragged(event, d) {
-          console.log('drag2 dragging')
+          // console.log(event.x, event.y, 'drag2 dragging')
+          newEdge.movePonit = { x: event.x, y: event.y }
         }
 
         function dragended(event, d) {
           console.log('drag2 draggeded')
-          console.log(event, 'keyup')
+          // 判断 edge 终点，是否在某一个anchor 范围内
+          const findNode = nodes.find(node => {
+            const dr = node.r
+            const dx = node.x - event.x
+            const dy = node.y - event.y
+            return dr * dr > dx * dx + dy * dy
+          })
+          // console.log(findNode)
+          if (findNode && findNode.id) {
+            // if d.id=== findNode.id return
+            newEdge.movePonit = { x: event.x, y: event.y }
+            newEdge.id = +new Date() + ''
+            newEdge.source = nodes.find(node => node.id === d.id)
+            newEdge.target = findNode
+            console.log(edges, 'edgesedges')
+            that.drawEdge(that.zoomG)
+          } else {
+            newEdge = null
+            // nodes = nodes.filter(nd => nd !== null)
+            edges.pop()
+            that.updateEdges()
+          }
         }
 
         return d3.drag()
@@ -127,13 +152,13 @@ export default {
           .on('drag', dragged)
           .on('end', dragended)
       }
-      nodes
+      nodeGroup
         .append('circle')
         .attr('class', 'circle')
         // .attr('cx', d => d.x)
         // .attr('cy', d => d.y)
         .attr('r', d => {
-          return 3
+          return d.r
         })
         .attr('stroke', 'red')
         .attr('fill', 'blue')
@@ -154,20 +179,29 @@ export default {
       const line = d3.line()
         .x(d => d)
         .y(d => d)
+      this.svg.selectAll('path.edgeLine').remove()
       const edgeGroup = zoomG.append('g')
         .selectAll('path')
         .data(edges)
         .join('path')
+        .attr('class', 'edgeLine')
         .attr('d', d => {
           return `M${d.source.x},${d.source.y}L${d.target.x},${d.target.y}`
         })
         .attr('stroke', 'red')
     },
     updateEdges() {
-      this.svg.select('path')
+      this.svg.selectAll('path.edgeLine')
+        .data(edges)
         .attr('d', d => {
           return `M${d.source.x},${d.source.y}L${d.target.x},${d.target.y}`
         })
+        .attr('stroke', 'blue')
+    },
+    addNewEdge() {
+      const newEdge = { id: 'newEdge', source: '', target: '', movePonit: null }
+      edges.push(newEdge)
+      return newEdge
     }
 
   }

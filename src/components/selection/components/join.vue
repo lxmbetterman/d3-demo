@@ -76,7 +76,7 @@ export default {
               .attr('fill', 'brown')
               .call(exit => exit.transition(1000).remove())
           )
-      }, 1500)
+      }, 2500)
     }
   }
 }
