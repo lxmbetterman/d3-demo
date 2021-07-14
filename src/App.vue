@@ -4,6 +4,10 @@
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
+import { name } from '@/assets/model.js'
+console.log(name, '@@@@')
+name = 2
+console.log(name, '@@@@')
 
 export default {
   name: 'App',

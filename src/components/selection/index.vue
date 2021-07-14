@@ -34,7 +34,7 @@ export default {
     p.attr('class', 'graf')
     p.style('color', 'red')
 
-    this.init()
+    // this.init()
     this.init2()
   },
 

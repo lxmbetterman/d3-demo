@@ -67,16 +67,16 @@ export default {
               .attr('fill', 'green')
               .attr('x', (d, i) => i * 16)
               .text(d => d)
-              .call(enter => enter.transition(1000).attr('y', 20)),
+              .call(enter => enter.transition(10000).attr('y', 20)),
             update => update
               .attr('fill', 'black')
               .attr('y', 20)
-              .call(update => update.transition(1000).attr('x', (d, i) => i * 16)),
+              .call(update => update.transition(10000).attr('x', (d, i) => i * 16)),
             exit => exit
               .attr('fill', 'brown')
-              .call(exit => exit.transition(1000).remove())
+              .call(exit => exit.transition(10000).remove())
           )
-      }, 2500)
+      }, 1000)
     }
   }
 }

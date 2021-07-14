@@ -4,6 +4,7 @@
     <DelaunayfindZoom />
     <China />
     <ZoomableAreaChart />
+    <Divzoom />
   </div>
 </template>
 
@@ -11,10 +12,11 @@
 import DelaunayfindZoom from './components/delaunayfindZoom'
 import China from './components/china'
 import ZoomableAreaChart from './components/zoomableAreaChart'
+import Divzoom from './components/divzoom'
 export default {
   name: '',
 
-  components: { DelaunayfindZoom, China, ZoomableAreaChart },
+  components: { DelaunayfindZoom, China, ZoomableAreaChart, Divzoom },
   data() {
     return {
     }

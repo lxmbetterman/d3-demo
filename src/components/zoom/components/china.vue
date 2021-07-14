@@ -49,9 +49,9 @@ export default {
       const path = d3.geoPath()
         .projection(projection)
 
-      console.log(data.features.map(item => {
-        console.log(path(item))
-      }), 'data.features')
+      // console.log(data.features.map(item => {
+      //   console.log(path(item))
+      // }), 'data.features')
 
       // const states = g.append('g')
       //   .attr('fill', '#444')
